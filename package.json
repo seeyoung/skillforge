@@ -1,0 +1,24 @@
+{
+  "name": "skillforge",
+  "version": "0.1.0",
+  "description": "Claude Code skill 저장소 및 관리 도구",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src/",
+    "test": "vitest"
+  },
+  "keywords": [
+    "claude-code",
+    "skills",
+    "cli",
+    "developer-tools"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
+}
