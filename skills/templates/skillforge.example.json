@@ -39,5 +39,15 @@
     },
     "autoCreateBranch": true,
     "autoClose": true
+  },
+  "build": {
+    "command": "./gradlew build",
+    "cleanCommand": "./gradlew clean",
+    "prodCommand": "./gradlew build -Pprod",
+    "outputDir": "build/libs",
+    "preBuildCommand": "./gradlew test",
+    "env": {
+      "JAVA_OPTS": "-Xmx2g"
+    }
   }
 }

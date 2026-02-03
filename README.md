@@ -128,6 +128,13 @@ git clone https://github.com/seeyoung/skillforge.git
 | | `review.command` | 리뷰 스크립트 경로 | - |
 | | `autoCreateBranch` | 자동 브랜치 생성 | `false` |
 | | `autoClose` | 자동 이슈 종료 | `true` |
+| **build** | `command` | 빌드 명령 | 자동 감지 |
+| | `devCommand` | 개발 빌드 명령 | - |
+| | `prodCommand` | 프로덕션 빌드 명령 | - |
+| | `cleanCommand` | 클린 명령 | 자동 감지 |
+| | `preBuildCommand` | 빌드 전 실행 명령 | - |
+| | `postBuildCommand` | 빌드 후 실행 명령 | - |
+| | `env` | 빌드 환경 변수 | `{}` |
 
 ### 예시: Groovy 프로젝트
 

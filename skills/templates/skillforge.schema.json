@@ -202,6 +202,56 @@
           "default": true
         }
       }
+    },
+    "build": {
+      "type": "object",
+      "description": "Build settings",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Default build command",
+          "examples": ["npm run build", "./gradlew build", "cargo build"]
+        },
+        "devCommand": {
+          "type": "string",
+          "description": "Development build command"
+        },
+        "prodCommand": {
+          "type": "string",
+          "description": "Production build command"
+        },
+        "cleanCommand": {
+          "type": "string",
+          "description": "Clean command",
+          "examples": ["rm -rf dist", "./gradlew clean"]
+        },
+        "outputDir": {
+          "type": "string",
+          "description": "Build output directory",
+          "examples": ["dist", "build", "target"]
+        },
+        "artifactDir": {
+          "type": "array",
+          "description": "Directories to clean",
+          "items": { "type": "string" },
+          "default": ["dist", "build"]
+        },
+        "preBuildCommand": {
+          "type": "string",
+          "description": "Command to run before build",
+          "examples": ["npm run lint", "npm run test"]
+        },
+        "postBuildCommand": {
+          "type": "string",
+          "description": "Command to run after build",
+          "examples": ["npm run test", "docker push"]
+        },
+        "env": {
+          "type": "object",
+          "description": "Environment variables for build",
+          "additionalProperties": { "type": "string" }
+        }
+      }
     }
   }
 }
