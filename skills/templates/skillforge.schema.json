@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skillforge Project Settings",
+  "description": "Project-specific settings for skillforge skills",
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "object",
+      "description": "Index file management settings",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable automatic index file updates",
+          "default": false
+        },
+        "file": {
+          "type": "string",
+          "description": "Path to the index file",
+          "default": "INDEX.md"
+        },
+        "track": {
+          "type": "array",
+          "description": "File patterns to track for index updates",
+          "items": { "type": "string" },
+          "examples": [["*Service.groovy", "*Utils.groovy", "src/**/*.ts"]]
+        },
+        "timestampFormat": {
+          "type": "string",
+          "description": "Timestamp format for index updates",
+          "default": "YYYY-MM-DD HH:mm"
+        }
+      }
+    },
+    "commit": {
+      "type": "object",
+      "description": "Git commit settings",
+      "properties": {
+        "language": {
+          "type": "string",
+          "enum": ["en", "ko"],
+          "description": "Commit message language",
+          "default": "en"
+        },
+        "conventionalCommits": {
+          "type": "boolean",
+          "description": "Use conventional commits format",
+          "default": true
+        },
+        "coAuthor": {
+          "type": "string",
+          "description": "Co-author for commits",
+          "default": "Claude <noreply@anthropic.com>"
+        }
+      }
+    },
+    "restart": {
+      "type": "object",
+      "description": "Dev server restart settings",
+      "properties": {
+        "port": {
+          "type": "integer",
+          "description": "Default dev server port",
+          "default": 3000
+        },
+        "command": {
+          "type": "string",
+          "description": "Custom start command",
+          "examples": ["npm run dev", "yarn dev", "./gradlew bootRun"]
+        },
+        "framework": {
+          "type": "string",
+          "enum": ["next", "vite", "cra", "express", "spring", "django", "auto"],
+          "description": "Framework type (auto-detected if not specified)",
+          "default": "auto"
+        }
+      }
+    },
+    "test": {
+      "type": "object",
+      "description": "Test runner settings",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Custom test command",
+          "examples": ["npm test", "pytest", "./gradlew test"]
+        },
+        "coverage": {
+          "type": "boolean",
+          "description": "Run with coverage by default",
+          "default": false
+        }
+      }
+    }
+  }
+}

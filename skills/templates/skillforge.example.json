@@ -1,0 +1,23 @@
+{
+  "$schema": "./skillforge.schema.json",
+  "index": {
+    "enabled": true,
+    "file": "INDEX.md",
+    "track": ["*Service.groovy", "*Utils.groovy"],
+    "timestampFormat": "YYYY-MM-DD HH:mm"
+  },
+  "commit": {
+    "language": "ko",
+    "conventionalCommits": false,
+    "coAuthor": "Claude <noreply@anthropic.com>"
+  },
+  "restart": {
+    "port": 8080,
+    "command": "./gradlew bootRun",
+    "framework": "spring"
+  },
+  "test": {
+    "command": "./gradlew test",
+    "coverage": true
+  }
+}

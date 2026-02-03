@@ -73,6 +73,82 @@ git clone https://github.com/seeyoung/skillforge.git
 > /sc:analyze security
 ```
 
+## 프로젝트별 설정 (`.skillforge.json`)
+
+각 프로젝트 루트에 `.skillforge.json`을 생성하여 skill 동작을 커스터마이징할 수 있습니다.
+
+```json
+{
+  "index": {
+    "enabled": true,
+    "file": "INDEX.md",
+    "track": ["*Service.groovy", "*Utils.groovy"],
+    "timestampFormat": "YYYY-MM-DD HH:mm"
+  },
+  "commit": {
+    "language": "ko",
+    "conventionalCommits": false,
+    "coAuthor": "Claude <noreply@anthropic.com>"
+  },
+  "restart": {
+    "port": 8080,
+    "command": "./gradlew bootRun",
+    "framework": "spring"
+  },
+  "test": {
+    "command": "./gradlew test",
+    "coverage": true
+  }
+}
+```
+
+### 설정 옵션
+
+| 섹션 | 옵션 | 설명 | 기본값 |
+|------|------|------|--------|
+| **index** | `enabled` | INDEX 파일 자동 업데이트 | `false` |
+| | `file` | INDEX 파일 경로 | `INDEX.md` |
+| | `track` | 추적할 파일 패턴 | `[]` |
+| | `timestampFormat` | 타임스탬프 형식 | `YYYY-MM-DD HH:mm` |
+| **commit** | `language` | 커밋 메시지 언어 (`en`/`ko`) | `en` |
+| | `conventionalCommits` | Conventional Commits 사용 | `true` |
+| | `coAuthor` | Co-author 설정 | `Claude <noreply@anthropic.com>` |
+| **restart** | `port` | 개발 서버 포트 | `3000` |
+| | `command` | 커스텀 시작 명령 | 자동 감지 |
+| | `framework` | 프레임워크 지정 | `auto` |
+| **test** | `command` | 테스트 명령 | 자동 감지 |
+| | `coverage` | 커버리지 포함 | `false` |
+
+### 예시: Groovy 프로젝트
+
+```json
+{
+  "index": {
+    "enabled": true,
+    "file": "INDEX.md",
+    "track": ["*Service.groovy", "*Utils.groovy"]
+  },
+  "commit": {
+    "language": "ko",
+    "conventionalCommits": false
+  }
+}
+```
+
+### 예시: React 프로젝트
+
+```json
+{
+  "restart": {
+    "port": 5173,
+    "framework": "vite"
+  },
+  "commit": {
+    "conventionalCommits": true
+  }
+}
+```
+
 ## 구조
 
 ```
