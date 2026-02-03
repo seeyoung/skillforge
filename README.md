@@ -24,6 +24,7 @@ git clone https://github.com/seeyoung/skillforge.git
 
 | Skill | 명령어 | 설명 |
 |-------|--------|------|
+| **init** | `/init` | **프로젝트 초기화 (CLAUDE.md + .skillforge.json)** |
 | design | `/sc:design` | 시스템/API/컴포넌트 설계 |
 | explain | `/sc:explain` | 코드 설명 및 분석 |
 | troubleshoot | `/sc:troubleshoot` | 버그/성능/빌드 문제 진단 |
