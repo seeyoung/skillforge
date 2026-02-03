@@ -21,5 +21,19 @@
   "test": {
     "command": "./gradlew test",
     "coverage": true
+  },
+  "issue": {
+    "branchPrefix": {
+      "fix": "fix/issue-",
+      "feat": "feat/issue-",
+      "default": "fix"
+    },
+    "review": {
+      "enabled": true,
+      "command": "~/.claude/scripts/ai-collab.sh",
+      "maxRounds": 3
+    },
+    "autoCreateBranch": true,
+    "autoClose": true
   }
 }

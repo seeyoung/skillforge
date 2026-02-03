@@ -118,6 +118,12 @@ git clone https://github.com/seeyoung/skillforge.git
 | | `framework` | 프레임워크 지정 | `auto` |
 | **test** | `command` | 테스트 명령 | 자동 감지 |
 | | `coverage` | 커버리지 포함 | `false` |
+| **issue** | `branchPrefix.fix` | 버그 수정 브랜치 접두사 | `fix/issue-` |
+| | `branchPrefix.feat` | 기능 브랜치 접두사 | `feat/issue-` |
+| | `review.enabled` | AI 리뷰 활성화 | `false` |
+| | `review.command` | 리뷰 스크립트 경로 | - |
+| | `autoCreateBranch` | 자동 브랜치 생성 | `false` |
+| | `autoClose` | 자동 이슈 종료 | `true` |
 
 ### 예시: Groovy 프로젝트
 

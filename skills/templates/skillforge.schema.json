@@ -102,6 +102,65 @@
           "default": false
         }
       }
+    },
+    "issue": {
+      "type": "object",
+      "description": "GitHub issue resolution settings",
+      "properties": {
+        "branchPrefix": {
+          "type": "object",
+          "description": "Branch naming prefixes",
+          "properties": {
+            "fix": {
+              "type": "string",
+              "description": "Prefix for bug fix branches",
+              "default": "fix/issue-"
+            },
+            "feat": {
+              "type": "string",
+              "description": "Prefix for feature branches",
+              "default": "feat/issue-"
+            },
+            "default": {
+              "type": "string",
+              "enum": ["fix", "feat"],
+              "description": "Default branch type",
+              "default": "fix"
+            }
+          }
+        },
+        "review": {
+          "type": "object",
+          "description": "Code review settings",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Enable AI code review",
+              "default": false
+            },
+            "command": {
+              "type": "string",
+              "description": "Review script path",
+              "examples": ["~/.claude/scripts/ai-collab.sh"]
+            },
+            "maxRounds": {
+              "type": "integer",
+              "description": "Maximum review rounds",
+              "default": 3
+            }
+          }
+        },
+        "autoCreateBranch": {
+          "type": "boolean",
+          "description": "Automatically create branch for issue",
+          "default": false
+        },
+        "autoClose": {
+          "type": "boolean",
+          "description": "Automatically close issue after commit",
+          "default": true
+        }
+      }
     }
   }
 }
