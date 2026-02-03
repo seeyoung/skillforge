@@ -252,6 +252,155 @@
           "additionalProperties": { "type": "string" }
         }
       }
+    },
+    "implement": {
+      "type": "object",
+      "description": "Implementation settings",
+      "properties": {
+        "framework": {
+          "type": "string",
+          "description": "Framework type",
+          "examples": ["spring", "react", "vue", "angular", "express"]
+        },
+        "language": {
+          "type": "string",
+          "description": "Programming language",
+          "examples": ["java", "kotlin", "typescript", "javascript", "python", "go"]
+        },
+        "tdd": {
+          "type": "boolean",
+          "description": "Enable TDD by default",
+          "default": false
+        },
+        "qualityGate": {
+          "type": "string",
+          "description": "Quality gate command",
+          "examples": ["./gradlew qualityGate", "npm run quality"]
+        },
+        "testCommand": {
+          "type": "string",
+          "description": "Test command (overrides test.command)"
+        },
+        "lintCommand": {
+          "type": "string",
+          "description": "Lint command"
+        },
+        "srcDir": {
+          "type": "string",
+          "description": "Source directory",
+          "examples": ["src/main/java", "src"]
+        },
+        "testDir": {
+          "type": "string",
+          "description": "Test directory",
+          "examples": ["src/test/java", "__tests__"]
+        },
+        "componentDir": {
+          "type": "string",
+          "description": "Component directory (frontend)",
+          "default": "src/components"
+        },
+        "conventions": {
+          "type": "object",
+          "description": "Code conventions",
+          "properties": {
+            "maxMethodLines": {
+              "type": "integer",
+              "description": "Maximum method lines",
+              "default": 30
+            },
+            "maxParams": {
+              "type": "integer",
+              "description": "Maximum method parameters",
+              "default": 5
+            },
+            "maxNestingDepth": {
+              "type": "integer",
+              "description": "Maximum nesting depth",
+              "default": 2
+            }
+          }
+        }
+      }
+    },
+    "analyze": {
+      "type": "object",
+      "description": "Code analysis settings",
+      "properties": {
+        "lintCommand": {
+          "type": "string",
+          "description": "Lint command",
+          "examples": ["npm run lint", "./gradlew checkstyleMain"]
+        },
+        "formatCommand": {
+          "type": "string",
+          "description": "Format check command",
+          "examples": ["npm run format:check", "prettier --check"]
+        },
+        "typeCheckCommand": {
+          "type": "string",
+          "description": "Type check command",
+          "examples": ["tsc --noEmit", "mypy"]
+        },
+        "securityCommand": {
+          "type": "string",
+          "description": "Security scan command",
+          "examples": ["npm audit", "./gradlew dependencyCheckAnalyze"]
+        },
+        "qualityCommand": {
+          "type": "string",
+          "description": "Quality gate command",
+          "examples": ["./gradlew qualityGate"]
+        },
+        "exclude": {
+          "type": "array",
+          "description": "Paths to exclude from analysis",
+          "items": { "type": "string" },
+          "default": ["node_modules", "dist", "build"]
+        },
+        "rules": {
+          "type": "object",
+          "description": "Analysis rules",
+          "properties": {
+            "maxFileLines": {
+              "type": "integer",
+              "description": "Maximum file lines",
+              "default": 500
+            },
+            "maxMethodLines": {
+              "type": "integer",
+              "description": "Maximum method lines",
+              "default": 30
+            },
+            "maxComplexity": {
+              "type": "integer",
+              "description": "Maximum cyclomatic complexity",
+              "default": 10
+            }
+          }
+        },
+        "security": {
+          "type": "object",
+          "description": "Security analysis settings",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Enable security analysis",
+              "default": true
+            },
+            "scanSecrets": {
+              "type": "boolean",
+              "description": "Scan for hardcoded secrets",
+              "default": true
+            },
+            "dependencyCheck": {
+              "type": "boolean",
+              "description": "Check dependency vulnerabilities",
+              "default": true
+            }
+          }
+        }
+      }
     }
   }
 }

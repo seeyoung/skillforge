@@ -49,5 +49,32 @@
     "env": {
       "JAVA_OPTS": "-Xmx2g"
     }
+  },
+  "implement": {
+    "framework": "spring",
+    "language": "java",
+    "tdd": true,
+    "qualityGate": "./gradlew qualityGate",
+    "srcDir": "src/main/java",
+    "testDir": "src/test/java",
+    "conventions": {
+      "maxMethodLines": 30,
+      "maxParams": 5,
+      "maxNestingDepth": 2
+    }
+  },
+  "analyze": {
+    "lintCommand": "./gradlew checkstyleMain",
+    "securityCommand": "./gradlew dependencyCheckAnalyze",
+    "qualityCommand": "./gradlew qualityGate",
+    "exclude": ["build", ".gradle"],
+    "rules": {
+      "maxFileLines": 500,
+      "maxComplexity": 10
+    },
+    "security": {
+      "enabled": true,
+      "dependencyCheck": true
+    }
   }
 }

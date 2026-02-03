@@ -135,6 +135,17 @@ git clone https://github.com/seeyoung/skillforge.git
 | | `preBuildCommand` | 빌드 전 실행 명령 | - |
 | | `postBuildCommand` | 빌드 후 실행 명령 | - |
 | | `env` | 빌드 환경 변수 | `{}` |
+| **implement** | `framework` | 프레임워크 타입 | 자동 감지 |
+| | `language` | 프로그래밍 언어 | 자동 감지 |
+| | `tdd` | TDD 기본 활성화 | `false` |
+| | `qualityGate` | 품질 검증 명령 | - |
+| | `srcDir` | 소스 디렉토리 | 자동 감지 |
+| | `conventions.maxMethodLines` | 메서드 최대 줄 수 | `30` |
+| **analyze** | `lintCommand` | 린트 명령 | 자동 감지 |
+| | `securityCommand` | 보안 스캔 명령 | 자동 감지 |
+| | `qualityCommand` | 품질 게이트 명령 | - |
+| | `rules.maxComplexity` | 최대 순환 복잡도 | `10` |
+| | `security.enabled` | 보안 분석 활성화 | `true` |
 
 ### 예시: Groovy 프로젝트
 
