@@ -80,6 +80,7 @@ git clone https://github.com/seeyoung/skillforge.git
 
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/seeyoung/skillforge/main/skills/templates/skillforge.schema.json",
   "index": {
     "enabled": true,
     "file": "INDEX.md",
@@ -117,7 +118,13 @@ git clone https://github.com/seeyoung/skillforge.git
 | **restart** | `port` | 개발 서버 포트 | `3000` |
 | | `command` | 커스텀 시작 명령 | 자동 감지 |
 | | `framework` | 프레임워크 지정 | `auto` |
+| | `cacheDir` | 캐시 디렉토리 (--clean 시 삭제) | 프레임워크별 |
+| | `logFile` | 로그 파일 경로 | - |
 | **test** | `command` | 테스트 명령 | 자동 감지 |
+| | `watchCommand` | 워치 모드 명령 | - |
+| | `unitPattern` | 유닛 테스트 패턴 | `**/*.test.*` |
+| | `integrationPattern` | 통합 테스트 패턴 | `**/*.integration.*` |
+| | `e2ePattern` | E2E 테스트 패턴 | `e2e/**/*` |
 | | `coverage` | 커버리지 기본 포함 | `false` |
 | | `coverageThreshold` | 최소 커버리지 % | - |
 | | `e2eCommand` | E2E 테스트 명령 | 자동 감지 |
@@ -125,14 +132,18 @@ git clone https://github.com/seeyoung/skillforge.git
 | | `teardownCommand` | 테스트 후 실행 명령 | - |
 | **issue** | `branchPrefix.fix` | 버그 수정 브랜치 접두사 | `fix/issue-` |
 | | `branchPrefix.feat` | 기능 브랜치 접두사 | `feat/issue-` |
+| | `branchPrefix.default` | 기본 브랜치 타입 (`fix`/`feat`) | `fix` |
 | | `review.enabled` | AI 리뷰 활성화 | `false` |
 | | `review.command` | 리뷰 스크립트 경로 | - |
+| | `review.maxRounds` | 최대 리뷰 라운드 | `3` |
 | | `autoCreateBranch` | 자동 브랜치 생성 | `false` |
 | | `autoClose` | 자동 이슈 종료 | `true` |
 | **build** | `command` | 빌드 명령 | 자동 감지 |
 | | `devCommand` | 개발 빌드 명령 | - |
 | | `prodCommand` | 프로덕션 빌드 명령 | - |
 | | `cleanCommand` | 클린 명령 | 자동 감지 |
+| | `outputDir` | 빌드 출력 디렉토리 | - |
+| | `artifactDir` | 아티팩트 디렉토리 | `["dist", "build"]` |
 | | `preBuildCommand` | 빌드 전 실행 명령 | - |
 | | `postBuildCommand` | 빌드 후 실행 명령 | - |
 | | `env` | 빌드 환경 변수 | `{}` |
@@ -141,12 +152,23 @@ git clone https://github.com/seeyoung/skillforge.git
 | | `tdd` | TDD 기본 활성화 | `false` |
 | | `qualityGate` | 품질 검증 명령 | - |
 | | `srcDir` | 소스 디렉토리 | 자동 감지 |
+| | `testDir` | 테스트 디렉토리 | 자동 감지 |
+| | `componentDir` | 컴포넌트 디렉토리 | `src/components` |
 | | `conventions.maxMethodLines` | 메서드 최대 줄 수 | `30` |
+| | `conventions.maxParams` | 파라미터 최대 개수 | `5` |
+| | `conventions.maxNestingDepth` | 최대 중첩 깊이 | `2` |
 | **analyze** | `lintCommand` | 린트 명령 | 자동 감지 |
+| | `formatCommand` | 포맷 검사 명령 | - |
+| | `typeCheckCommand` | 타입 검사 명령 | - |
 | | `securityCommand` | 보안 스캔 명령 | 자동 감지 |
 | | `qualityCommand` | 품질 게이트 명령 | - |
+| | `exclude` | 분석 제외 경로 | `["node_modules", "dist", "build"]` |
+| | `rules.maxFileLines` | 파일 최대 줄 수 | `500` |
+| | `rules.maxMethodLines` | 메서드 최대 줄 수 | `30` |
 | | `rules.maxComplexity` | 최대 순환 복잡도 | `10` |
 | | `security.enabled` | 보안 분석 활성화 | `true` |
+| | `security.scanSecrets` | 시크릿 스캔 | `true` |
+| | `security.dependencyCheck` | 의존성 취약점 검사 | `true` |
 
 ### 예시: Groovy 프로젝트
 

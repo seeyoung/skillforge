@@ -1,5 +1,5 @@
 {
-  "$schema": "./skillforge.schema.json",
+  "$schema": "https://raw.githubusercontent.com/seeyoung/skillforge/main/skills/templates/skillforge.schema.json",
   "index": {
     "enabled": true,
     "file": "INDEX.md",

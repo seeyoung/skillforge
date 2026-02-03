@@ -69,7 +69,7 @@
         },
         "framework": {
           "type": "string",
-          "enum": ["next", "vite", "cra", "express", "spring", "django", "auto"],
+          "enum": ["next", "nuxt", "vite", "sveltekit", "angular", "cra", "express", "spring", "maven", "django", "go", "rust", "auto"],
           "description": "Framework type (auto-detected if not specified)",
           "default": "auto"
         },
