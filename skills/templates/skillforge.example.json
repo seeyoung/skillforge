@@ -20,7 +20,11 @@
   },
   "test": {
     "command": "./gradlew test",
-    "coverage": true
+    "coverage": true,
+    "coverageThreshold": 80,
+    "e2eCommand": "./gradlew e2eTest",
+    "setupCommand": "docker-compose up -d",
+    "teardownCommand": "docker-compose down"
   },
   "issue": {
     "branchPrefix": {

@@ -100,6 +100,47 @@
           "type": "boolean",
           "description": "Run with coverage by default",
           "default": false
+        },
+        "coverageThreshold": {
+          "type": "integer",
+          "description": "Minimum coverage percentage",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "watchCommand": {
+          "type": "string",
+          "description": "Watch mode command",
+          "examples": ["npm test -- --watch", "pytest-watch"]
+        },
+        "e2eCommand": {
+          "type": "string",
+          "description": "E2E test command",
+          "examples": ["npx playwright test", "npx cypress run"]
+        },
+        "unitPattern": {
+          "type": "string",
+          "description": "Unit test file pattern",
+          "default": "**/*.test.*"
+        },
+        "integrationPattern": {
+          "type": "string",
+          "description": "Integration test file pattern",
+          "default": "**/*.integration.*"
+        },
+        "e2ePattern": {
+          "type": "string",
+          "description": "E2E test file pattern",
+          "default": "e2e/**/*"
+        },
+        "setupCommand": {
+          "type": "string",
+          "description": "Command to run before tests",
+          "examples": ["docker-compose up -d", "npm run test:setup"]
+        },
+        "teardownCommand": {
+          "type": "string",
+          "description": "Command to run after tests",
+          "examples": ["docker-compose down", "npm run test:teardown"]
         }
       }
     },

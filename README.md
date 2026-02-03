@@ -117,7 +117,11 @@ git clone https://github.com/seeyoung/skillforge.git
 | | `command` | 커스텀 시작 명령 | 자동 감지 |
 | | `framework` | 프레임워크 지정 | `auto` |
 | **test** | `command` | 테스트 명령 | 자동 감지 |
-| | `coverage` | 커버리지 포함 | `false` |
+| | `coverage` | 커버리지 기본 포함 | `false` |
+| | `coverageThreshold` | 최소 커버리지 % | - |
+| | `e2eCommand` | E2E 테스트 명령 | 자동 감지 |
+| | `setupCommand` | 테스트 전 실행 명령 | - |
+| | `teardownCommand` | 테스트 후 실행 명령 | - |
 | **issue** | `branchPrefix.fix` | 버그 수정 브랜치 접두사 | `fix/issue-` |
 | | `branchPrefix.feat` | 기능 브랜치 접두사 | `feat/issue-` |
 | | `review.enabled` | AI 리뷰 활성화 | `false` |
