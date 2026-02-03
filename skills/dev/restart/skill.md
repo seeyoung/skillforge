@@ -1,13 +1,13 @@
 ---
 name: restart
 description: "서버 재시작, restart, 재기동 요청 시 사용"
-version: 2.0.0
+version: 3.0.0
 ---
 
 # /restart - Dev Server Restart
 
 ## Overview
-개발 서버를 재시작합니다. 프로젝트 설정을 자동 감지합니다.
+개발 서버를 재시작합니다. `.skillforge.json` 설정 또는 프로젝트 자동 감지를 사용합니다.
 
 ## Usage
 ```
@@ -17,76 +17,108 @@ version: 2.0.0
 /restart --port 3001  # 특정 포트로 재시작
 ```
 
-## Auto Detection
+## Step 1: Load Project Settings
 
-실행 전 다음을 자동 감지합니다:
+```bash
+# 프로젝트 설정 확인
+cat .skillforge.json 2>/dev/null
+```
 
-### 1. 프로젝트명
+**Settings schema (`restart` section):**
+```json
+{
+  "restart": {
+    "port": 8080,
+    "command": "./gradlew bootRun",
+    "framework": "spring",
+    "cacheDir": ["build", ".gradle"],
+    "logFile": "logs/dev.log"
+  }
+}
+```
+
+| 옵션 | 설명 | 기본값 |
+|------|------|--------|
+| `port` | 개발 서버 포트 | 자동 감지 또는 `3000` |
+| `command` | 시작 명령어 | `npm run dev` |
+| `framework` | 프레임워크 타입 | `auto` |
+| `cacheDir` | 캐시 디렉토리 목록 | 프레임워크별 자동 |
+| `logFile` | 로그 파일 경로 | `/tmp/${PROJECT_NAME}-dev.log` |
+
+## Step 2: Auto Detection (Fallback)
+
+`.skillforge.json`이 없으면 자동 감지:
+
+### 프로젝트명
 ```bash
 PROJECT_NAME=$(basename "$(pwd)")
 ```
 
-### 2. 포트 (우선순위)
+### 포트 (우선순위)
 1. `--port` 인자
-2. `.env` 또는 `.env.local`의 `PORT=`
-3. `package.json`의 `scripts.dev`에서 추출
-4. 기본값: `3000`
+2. `.skillforge.json`의 `restart.port`
+3. `.env` 또는 `.env.local`의 `PORT=`
+4. `package.json`의 `scripts.dev`에서 추출
+5. 기본값: `3000`
 
 ```bash
-# .env에서 포트 추출
 PORT=$(grep -E "^PORT=" .env .env.local 2>/dev/null | tail -1 | cut -d= -f2)
 ```
 
-### 3. 프레임워크 & 캐시 디렉토리
-| 감지 파일 | 프레임워크 | 캐시 디렉토리 |
-|-----------|------------|---------------|
-| `next.config.*` | Next.js | `.next` |
-| `vite.config.*` | Vite | `dist`, `.vite` |
-| `nuxt.config.*` | Nuxt | `.nuxt`, `.output` |
-| `svelte.config.*` | SvelteKit | `.svelte-kit` |
-| `angular.json` | Angular | `.angular` |
-| 기타 | Node.js | `dist` |
+### 프레임워크 & 캐시 디렉토리
+| 감지 파일 | 프레임워크 | 캐시 디렉토리 | 기본 명령 |
+|-----------|------------|---------------|-----------|
+| `next.config.*` | Next.js | `.next` | `npm run dev` |
+| `vite.config.*` | Vite | `dist`, `.vite` | `npm run dev` |
+| `nuxt.config.*` | Nuxt | `.nuxt`, `.output` | `npm run dev` |
+| `svelte.config.*` | SvelteKit | `.svelte-kit` | `npm run dev` |
+| `angular.json` | Angular | `.angular` | `ng serve` |
+| `build.gradle*` | Spring | `build`, `.gradle` | `./gradlew bootRun` |
+| `pom.xml` | Maven | `target` | `mvn spring-boot:run` |
+| `manage.py` | Django | `__pycache__` | `python manage.py runserver` |
+| 기타 | Node.js | `dist` | `npm run dev` |
 
-### 4. 로그 파일
+### 로그 파일
 ```bash
-LOG_FILE="/tmp/${PROJECT_NAME}-dev.log"
+LOG_FILE="${restart.logFile:-/tmp/${PROJECT_NAME}-dev.log}"
 ```
 
-## Execution Steps
+## Step 3: Execution
 
 ### For `/restart` or `/restart --clean`
 
-1. 자동 감지 실행
+1. **설정 로드**
 ```bash
-PROJECT_NAME=$(basename "$(pwd)")
-PORT=${PORT:-3000}
-LOG_FILE="/tmp/${PROJECT_NAME}-dev.log"
+# .skillforge.json에서 설정 읽기 (있으면)
+PORT=${설정값 또는 자동감지}
+COMMAND=${설정값 또는 자동감지}
+LOG_FILE=${설정값 또는 기본값}
 ```
 
-2. 기존 프로세스 종료
+2. **기존 프로세스 종료**
 ```bash
 lsof -ti:$PORT | xargs kill -9 2>/dev/null || true
 ```
 
-3. `--clean` 시 캐시 삭제
+3. **`--clean` 시 캐시 삭제**
 ```bash
-# 프레임워크별 캐시 디렉토리 삭제
-rm -rf .next .nuxt .output .svelte-kit .vite .angular dist 2>/dev/null || true
+# .skillforge.json의 cacheDir 또는 프레임워크별 기본값
+rm -rf ${CACHE_DIRS} 2>/dev/null || true
 ```
 
-4. 개발 서버 시작
+4. **개발 서버 시작**
 ```bash
-npm run dev > "$LOG_FILE" 2>&1 &
+$COMMAND > "$LOG_FILE" 2>&1 &
 # 또는 PORT 지정이 필요한 경우
-PORT=$PORT npm run dev > "$LOG_FILE" 2>&1 &
+PORT=$PORT $COMMAND > "$LOG_FILE" 2>&1 &
 ```
 
-5. 초기 로그 확인
+5. **초기 로그 확인**
 ```bash
 sleep 3 && tail -20 "$LOG_FILE"
 ```
 
-6. 결과 보고
+6. **결과 보고**
 ```
 서버 재시작 중: http://localhost:$PORT
 로그: $LOG_FILE
@@ -95,19 +127,36 @@ sleep 3 && tail -20 "$LOG_FILE"
 ### For `/restart --log`
 
 ```bash
-tail -50 "/tmp/${PROJECT_NAME}-dev.log"
+tail -50 "$LOG_FILE"
 ```
 
 ## Examples
 
+### 자동 감지 (설정 파일 없음)
 ```bash
-# Next.js 프로젝트 (자동 감지)
+# Next.js 프로젝트
 /restart
-# → 포트 3000, 캐시 .next
+# → 포트 3000, 캐시 .next, npm run dev
+```
 
-# 특정 포트 지정
-/restart --port 8080
+### .skillforge.json 사용
+```json
+// .skillforge.json
+{
+  "restart": {
+    "port": 8080,
+    "command": "./gradlew bootRun",
+    "cacheDir": ["build"]
+  }
+}
+```
+```bash
+/restart
+# → 포트 8080, ./gradlew bootRun 실행
+```
 
-# 캐시 클린 후 재시작
-/restart --clean
+### 명령줄 오버라이드
+```bash
+/restart --port 9000
+# → .skillforge.json 설정 무시하고 포트 9000 사용
 ```

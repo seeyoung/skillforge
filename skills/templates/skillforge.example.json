@@ -14,7 +14,9 @@
   "restart": {
     "port": 8080,
     "command": "./gradlew bootRun",
-    "framework": "spring"
+    "framework": "spring",
+    "cacheDir": ["build", ".gradle"],
+    "logFile": "logs/dev.log"
   },
   "test": {
     "command": "./gradlew test",

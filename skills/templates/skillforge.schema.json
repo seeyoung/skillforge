@@ -72,6 +72,18 @@
           "enum": ["next", "vite", "cra", "express", "spring", "django", "auto"],
           "description": "Framework type (auto-detected if not specified)",
           "default": "auto"
+        },
+        "cacheDir": {
+          "type": "array",
+          "description": "Cache directories to clean on --clean",
+          "items": { "type": "string" },
+          "examples": [[".next"], ["build", ".gradle"], ["dist", ".vite"]]
+        },
+        "logFile": {
+          "type": "string",
+          "description": "Log file path",
+          "default": "/tmp/${PROJECT_NAME}-dev.log",
+          "examples": ["logs/dev.log", "/tmp/myapp-dev.log"]
         }
       }
     },
