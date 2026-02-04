@@ -12,6 +12,11 @@ Claude의 컨텍스트 윈도우는 크지 않습니다. 프로젝트가 커지�
 - **이슈 기반 개발**: GitHub 이슈에서 시작해서 TDD로 구현, 커밋까지 일관된 워크플로우
 - **다중 AI 협업**: Gemini CLI, Codex CLI와 협업하여 다양한 관점의 리뷰
 
+## 전제 조건
+
+- **Claude Code CLI** 설치 필요 ([설치 가이드](https://docs.anthropic.com/en/docs/claude-code))
+- `/collab` 사용 시: [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Codex CLI](https://github.com/openai/codex) 설치
+
 ## Quick Start
 
 ```bash
@@ -101,6 +106,24 @@ Gemini CLI와 Codex CLI를 커맨드라인으로 호출하여 다중 AI 관점�
 - 코드 리뷰: 여러 AI 관점에서 품질/보안 분석
 - 설계 검토: 아키텍처 결정에 대한 다중 의견
 - 버그 분석: 다양한 시각으로 문제 진단
+
+**리뷰 결과 예시:**
+```
+📊 Multi-AI 리뷰 결과
+
+Gemini:
+- [High] SQL injection 위험: userId 파라미터 검증 필요
+- [Medium] 에러 핸들링 누락
+
+Codex:
+- [High] 동일 이슈 확인 (SQL injection)
+- [Low] 변수명 개선 제안: data → userProfile
+
+Claude 종합:
+- SQL injection 수정 필수 (두 AI 모두 지적)
+- 에러 핸들링 추가 권장
+- 변수명은 현재 유지 (맥락상 적절)
+```
 
 ### `/init` - 프로젝트 초기화
 
